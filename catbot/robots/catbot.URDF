@@ -1,4 +1,5 @@
 <robot name="catbot">
+    <!-- This is a fictitious link, falling right below the center of mass of the robot, and acting as a projection of it on the ground.-->
     <link name="base_footprint">
       <inertial>
         <mass value="0.0001"/>
@@ -6,11 +7,13 @@
         <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
       </inertial>
     </link>
+    <!-- Joint to connect the fictitious link to the actual chassis of the robot -->
     <joint name="base_footprint_joint" type="fixed">
-      <origin rpy="0 0 0" xyz="0 0 0.11"/>
+      <origin rpy="0 0 0" xyz="0 0 0.13"/>
       <parent link="base_footprint"/>
       <child link="base_link"/>
     </joint>
+    <!-- Actual chassis link of the robot -->
     <link name="base_link">
         <inertial>
         <origin
@@ -50,6 +53,7 @@
         </geometry>
         </collision>
     </link>
+    <!-- Right wheel link -->
     <link name="right_wheel">
         <inertial>
         <origin
@@ -89,6 +93,7 @@
         </geometry>
         </collision>
     </link>
+    <!-- Right wheel joint, this joint is commanded with velocity to cause the wheel to rotate -->
     <joint name="right_motor"
         type="continuous">
         <origin
@@ -107,6 +112,7 @@
         damping="0.006"
         friction="0.01" />
     </joint>
+    <!-- Left wheel link -->
     <link name="left_wheel">
         <inertial>
         <origin
@@ -146,6 +152,7 @@
         </geometry>
         </collision>
     </link>
+    <!-- Left wheel joint, this joint is commanded with velocity to cause the wheel to rotate -->
     <joint name="left_motor"
         type="continuous">
         <origin
@@ -163,6 +170,17 @@
         <dynamics
         damping="0.006"
         friction="0.01" />
+    </joint>
+    <!-- Caster Wheel Joint and Link -->
+    <joint name="ball_and_socket"
+        type="fixed">
+        <origin
+        xyz="0 0.20508 -0.11627"
+        rpy="1.5708 0 -1.5708" />
+        <parent
+        link="base_link" />
+        <child
+        link="caster_wheel" />
     </joint>
     <link name="caster_wheel">
         <inertial>
@@ -203,18 +221,7 @@
         </geometry>
         </collision>
     </link>
-    <joint name="ball_and_socket"
-        type="continuous">
-        <origin
-        xyz="0 0.20508 -0.11627"
-        rpy="1.5708 0 -1.5708" />
-        <parent
-        link="base_link" />
-        <child
-        link="caster_wheel" />
-        <axis
-        xyz="0 0 -1" />
-    </joint>
+    <!-- Camera Link -->
     <link name="camera">
         <inertial>
         <origin
@@ -254,6 +261,7 @@
         </geometry>
         </collision>
     </link>
+    <!-- Camera Joint to connect the camera to the chassis -->
     <joint name="camera_joint"
         type="fixed">
         <origin
@@ -266,6 +274,7 @@
         <axis
         xyz="0 0 0" />
     </joint>
+    <!-- Laser Scanner Link -->
     <link name="laser_scanner">
         <inertial>
         <origin
@@ -305,6 +314,7 @@
         </geometry>
         </collision>
     </link>
+    <!-- Laser Scanner Joint to connect the laser scanner to the chassis -->
     <joint name="laser_scanner_joint"
         type="fixed">
         <origin
@@ -317,6 +327,7 @@
         <axis
         xyz="0 0 0" />
     </joint>
+    <!-- Transmission element to provide interface for ros-controllers -->
     <transmission name="left_transmission">
             <type> transmission_interface/SimpleTransmission </type>
             <joint name="left_motor">
@@ -326,6 +337,7 @@
                     <mechanicalReduction>1</mechanicalReduction>
             </actuator>
     </transmission>
+    <!-- Transmission element to provide interface for ros-controllers -->
     <transmission name="right_transmission">
             <type> transmission_interface/SimpleTransmission </type>
             <joint name="right_motor">
@@ -335,6 +347,10 @@
                     <mechanicalReduction>1</mechanicalReduction>
             </actuator>
     </transmission>
+    <!-- Gazebo tags for simulation parameterss -->
+    <gazebo reference="base_footprint">
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
     <gazebo reference="left_wheel">
             <mu1>0.7</mu1>
             <mu2>0.7</mu2>
@@ -368,13 +384,14 @@
     <gazebo reference="laser_scanner_joint">
 
     </gazebo>
+    <!-- Loading gazebo-ros-control plugin -->
     <gazebo>
             <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
                     <robotNamespace>/catbot</robotNamespace>
                     <controlPeriod> 0.01 </controlPeriod>
             </plugin>
     </gazebo>
-    <!-- camera -->
+    <!-- Loading gazebo sensor (camera) plugin and connecting it to the camera link -->
     <gazebo reference="camera">
         <sensor type="camera" name="front_camera">
           <update_rate>30.0</update_rate>
@@ -414,6 +431,7 @@
           </plugin>
         </sensor>
     </gazebo>
+    <!-- Loading gazebo sensor (laser scanner) plugin and connecting it to the laser scanner link -->
     <gazebo reference="laser_scanner">
       <sensor type="gpu_ray" name="head_hokuyo_sensor">
         <pose>0 0 0 0 0 0</pose>
@@ -448,8 +466,5 @@
           <frameName>laser_scanner</frameName>
         </plugin>
       </sensor>
-    </gazebo>
-    <gazebo reference="base_footprint">
-      <turnGravityOff>false</turnGravityOff>
     </gazebo>
 </robot>
