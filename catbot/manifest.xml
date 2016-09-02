@@ -1,0 +1,6 @@
+<package>
+  <description brief="catbot">catbot</description>
+  <depend package="gazebo" />
+  <author>CAT Center</author>
+  <license>BSD</license>
+</package>
