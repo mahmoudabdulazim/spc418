@@ -433,7 +433,7 @@
     </gazebo>
     <!-- Loading gazebo sensor (laser scanner) plugin and connecting it to the laser scanner link -->
     <gazebo reference="laser_scanner">
-      <sensor type="gpu_ray" name="head_hokuyo_sensor">
+      <sensor type="ray" name="head_hokuyo_sensor">
         <pose>0 0 0 0 0 0</pose>
         <visualize>false</visualize>
         <update_rate>40</update_rate>
@@ -461,10 +461,33 @@
             <stddev>0.01</stddev>
           </noise>
         </ray>
-        <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so">
+        <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
           <topicName>/catbot/laser/scan</topicName>
           <frameName>laser_scanner</frameName>
         </plugin>
       </sensor>
+    </gazebo>
+    <gazebo>
+        <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+            <rosDebugLevel> Debug </rosDebugLevel>
+            <publishWheelTF>false</publishWheelTF>
+            <robotNameSpace>/</robotNameSpace>
+            <publishTF>true</publishTF>
+            <publishWheelJointState>false</publishWheelJointState>
+            <alwaysOn>true</alwaysOn>
+            <updateRate>100.1</updateRate>
+            <leftJoint>left_motor</leftJoint>
+            <rightJoint>left_motor</rightJoint>
+            <wheelSeparation>0.5</wheelSeparation>
+            <wheelDiameter>0.15</wheelDiameter>
+            <broadcastTF>1</broadcastTF>
+            <wheelTorque>30</wheelTorque>
+            <wheelAcceleration>1.8</wheelAcceleration>
+            <commandTopic>cmd_vel</commandTopic>
+            <odometryFrame>odom</odometryFrame>
+            <odometryTopic>odom</odometryTopic>
+            <robotBaseFrame>base_footprint</robotBaseFrame>
+            <legacyMode>true</legacyMode>
+        </plugin>
     </gazebo>
 </robot>
