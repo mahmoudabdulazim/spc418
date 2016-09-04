@@ -1,0 +1,23 @@
+digraph G {
+node [shape=box];
+"base_footprint" [label="base_footprint"];
+"base_link" [label="base_link"];
+"caster_wheel" [label="caster_wheel"];
+"camera" [label="camera"];
+"laser_scanner" [label="laser_scanner"];
+"left_wheel" [label="left_wheel"];
+"right_wheel" [label="right_wheel"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_footprint" -> "base_footprint_joint" [label="xyz: 0 0 0.13 \nrpy: 0 -0 0"]
+"base_footprint_joint" -> "base_link"
+"base_link" -> "ball_and_socket" [label="xyz: 0 0.20508 -0.11627 \nrpy: 1.5708 -0 -1.5708"]
+"ball_and_socket" -> "caster_wheel"
+"base_link" -> "camera_joint" [label="xyz: 0 0.27409 -0.039719 \nrpy: 0 -0 1.5708"]
+"camera_joint" -> "camera"
+"base_link" -> "laser_scanner_joint" [label="xyz: 0 0.026147 0.11309 \nrpy: 0 -0 1.5708"]
+"laser_scanner_joint" -> "laser_scanner"
+"base_link" -> "left_motor" [label="xyz: -0.15697 -0.073269 -0.041165 \nrpy: 1.5708 -0 -1.5708"]
+"left_motor" -> "left_wheel"
+"base_link" -> "right_motor" [label="xyz: 0.15697 -0.073269 -0.041165 \nrpy: 1.5708 -0 -1.5708"]
+"right_motor" -> "right_wheel"
+}
