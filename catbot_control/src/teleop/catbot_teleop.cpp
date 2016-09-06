@@ -32,7 +32,7 @@ int main(int argc, char **argv)
     //Initializing ROS
     ros::init(argc, argv, "catbot_teleop");
     ros::NodeHandle node;
-    ros::Publisher teleop_pub = node.advertise<geometry_msgs::Twist>("/catbot/cmd_vel",1);
+    ros::Publisher teleop_pub = node.advertise<geometry_msgs::Twist>("/catbot/cmd_vel",5);
     ros::Rate loop_rate(50);
 
     while (ros::ok())
@@ -103,13 +103,13 @@ int main(int argc, char **argv)
             }
         }
 
-        geometry_msgs::Twist    vel_command;
+        geometry_msgs::Twist      vel_command;
 
         vel_command.linear.x  = linear_vel;
-        vel_command.linear.y  = 1;
-        vel_command.linear.z  = 1;
-        vel_command.angular.x = 1;
-        vel_command.angular.y = 1;
+        vel_command.linear.y  = 0;
+        vel_command.linear.z  = 0;
+        vel_command.angular.x = 0;
+        vel_command.angular.y = 0;
         vel_command.angular.z = angular_vel;
 
         teleop_pub.publish(vel_command);
@@ -123,7 +123,7 @@ char getKey(fd_set rfds)
 {
     char key_buff[1];
     struct timespec tv;
-    tv.tv_sec  = 0.5;
+    tv.tv_sec  = 0.001;
     tv.tv_nsec = 0;
     pselect(STDIN_FILENO+1,&rfds,NULL,NULL,&tv,NULL);
 
