@@ -1,5 +1,5 @@
 <launch>
 	<include file="$(find catbot)/launch/gazebo.launch" />
 	<rosparam file="$(find catbot)/config/catbot_gazebo_control.yaml" command="load"/>
-	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="catbot" args="joint_state_controller left_motor_velocity_controller right_motor_velocity_controller" />
+        <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="catbot" args="joint_state_controller" />
 </launch>

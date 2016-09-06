@@ -2,13 +2,3 @@ catbot:
  joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 100
-
- left_motor_velocity_controller:
-  type: velocity_controllers/JointVelocityController
-  joint: left_motor
-  pid: {p: 100.0, i: 0.01, d: 10.0}
-
- right_motor_velocity_controller:
-  type: velocity_controllers/JointVelocityController
-  joint: right_motor
-  pid: {p: 100.0, i: 0.01, d: 10.0}

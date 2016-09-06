@@ -9,7 +9,7 @@
     </link>
     <!-- Joint to connect the fictitious link to the actual chassis of the robot -->
     <joint name="base_footprint_joint" type="fixed">
-      <origin rpy="0 0 0" xyz="0 0 0.13"/>
+      <origin rpy="0 0 0" xyz="0 0 0.125"/>
       <parent link="base_footprint"/>
       <child link="base_link"/>
     </joint>
@@ -327,38 +327,17 @@
         <axis
         xyz="0 0 0" />
     </joint>
-    <!-- Transmission element to provide interface for ros-controllers -->
-    <transmission name="left_transmission">
-            <type> transmission_interface/SimpleTransmission </type>
-            <joint name="left_motor">
-                    <hardwareInterface>VelocityJointInterface</hardwareInterface>
-            </joint>
-            <actuator name="left_actuator">
-                    <mechanicalReduction>1</mechanicalReduction>
-            </actuator>
-    </transmission>
-    <!-- Transmission element to provide interface for ros-controllers -->
-    <transmission name="right_transmission">
-            <type> transmission_interface/SimpleTransmission </type>
-            <joint name="right_motor">
-                    <hardwareInterface>VelocityJointInterface</hardwareInterface>
-            </joint>
-            <actuator name="right_actuator">
-                    <mechanicalReduction>1</mechanicalReduction>
-            </actuator>
-    </transmission>
-    <!-- Gazebo tags for simulation parameterss -->
     <gazebo reference="base_footprint">
       <turnGravityOff>false</turnGravityOff>
     </gazebo>
     <gazebo reference="left_wheel">
-            <mu1>0.7</mu1>
-            <mu2>0.7</mu2>
+            <mu1>1000</mu1>
+            <mu2>1000</mu2>
             <material> Gazebo/Black </material>
     </gazebo>
     <gazebo reference="right_wheel">
-            <mu1>0.7</mu1>
-            <mu2>0.7</mu2>
+            <mu1>1000</mu1>
+            <mu2>1000</mu2>
             <material> Gazebo/Black </material>
     </gazebo>
     <gazebo reference="base_link">
@@ -470,24 +449,26 @@
     <gazebo>
         <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
             <rosDebugLevel> Debug </rosDebugLevel>
-            <publishWheelTF>false</publishWheelTF>
-            <robotNameSpace>/</robotNameSpace>
+            <publishWheelTF>true</publishWheelTF>
+            <robotNameSpace>/catbot</robotNameSpace>
             <publishTF>true</publishTF>
             <publishWheelJointState>false</publishWheelJointState>
             <alwaysOn>true</alwaysOn>
-            <updateRate>100.1</updateRate>
+            <updateRate>100</updateRate>
             <leftJoint>left_motor</leftJoint>
-            <rightJoint>left_motor</rightJoint>
-            <wheelSeparation>0.5</wheelSeparation>
-            <wheelDiameter>0.15</wheelDiameter>
-            <broadcastTF>1</broadcastTF>
-            <wheelTorque>30</wheelTorque>
-            <wheelAcceleration>1.8</wheelAcceleration>
-            <commandTopic>cmd_vel</commandTopic>
-            <odometryFrame>odom</odometryFrame>
-            <odometryTopic>odom</odometryTopic>
+            <rightJoint>right_motor</rightJoint>
+            <wheelSeparation>0.353</wheelSeparation>
+            <wheelDiameter>0.164</wheelDiameter>
+            <broadcastTF>0</broadcastTF>
+            <wheelTorque>20</wheelTorque>
+            <wheelAcceleration>9.8</wheelAcceleration>
+            <commandTopic>catbot/cmd_vel</commandTopic>
+            <odometryFrame>catbot/odom</odometryFrame>
+            <odometryTopic>catbot/odom</odometryTopic>
             <robotBaseFrame>base_footprint</robotBaseFrame>
-            <legacyMode>true</legacyMode>
+            <legacyMode>false</legacyMode>
+            <odometrySource>encoder</odometrySource>
+            <publishTf>1</publishTf>
         </plugin>
     </gazebo>
 </robot>
