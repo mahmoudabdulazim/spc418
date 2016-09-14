@@ -27,3 +27,8 @@ add_executable(teleop_node src/teleop/catbot_teleop.cpp)
 
 # Link libraries to the executable
 target_link_libraries(teleop_node ${catkin_LIBRARIES})
+
+add_executable(fourWD_controller src/4WD_control.cpp)
+
+# Link libraries to the executable
+target_link_libraries(fourWD_controller ${catkin_LIBRARIES})

@@ -101,6 +101,11 @@ int main(int argc, char **argv)
             {
                 linear_vel   = 0;
             }
+            case '\0':
+            {
+              linear_vel = 0;
+              angular_vel = 0;
+            }
         }
 
         geometry_msgs::Twist      vel_command;
