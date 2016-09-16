@@ -33,7 +33,7 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "catbot_teleop");
     ros::NodeHandle node;
     ros::Publisher teleop_pub = node.advertise<geometry_msgs::Twist>("/catbot/cmd_vel",5);
-    ros::Rate loop_rate(50);
+    ros::Rate loop_rate(20);
 
     while (ros::ok())
     {
@@ -101,11 +101,11 @@ int main(int argc, char **argv)
             {
                 linear_vel   = 0;
             }
-            case '\0':
-            {
-              linear_vel = 0;
-              angular_vel = 0;
-            }
+//            case '\0':
+//            {
+//              linear_vel = 0;
+//              angular_vel = 0;
+//            }
         }
 
         geometry_msgs::Twist      vel_command;

@@ -1,6 +1,6 @@
 <launch>
     <include file="$(find catbot_description)/launch/gazebo.launch" />
-    <rosparam file="$(find catbot_control)/config/catbot_wheel_joint_controllers.yaml" command="load"/>
+<!--    <rosparam file="$(find catbot_control)/config/catbot_wheel_joint_controllers.yaml" command="load"/>
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
             output="screen" ns="/catbot" args="joint_state_controller
                                               front_left_wheel_effort_controller
@@ -8,5 +8,6 @@
                                               back_left_wheel_effort_controller
                                               back_right_wheel_effort_controller"/>
     <node name="fourWD_controller" pkg="catbot_control" type="fourWD_controller"/>
+    -->
     <node name="teleop_node" pkg="catbot_control" type="teleop_node"/>
 </launch>
