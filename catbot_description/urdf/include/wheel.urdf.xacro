@@ -44,14 +44,13 @@
     </link>
 
     <gazebo reference="${fb}_${lr}_wheel">
-      <fdir1 value="1 0 0"/>
       <material>Gazebo/Black</material>
+      <fdir1 value="1 0 0"/>
       <mu1>1</mu1>
-      <mu2>0</mu2>
+      <mu2>1</mu2>
       <kp>1000000.0</kp>
-      <kd>1.0</kd>
-      <minDepth>0.01</minDepth>
-      <maxContacts>1</maxContacts>
+      <kd>10.0</kd>
+      <minDepth>0.001</minDepth>
       <turnGravityOff>false</turnGravityOff>
       <dampingFactor>0.01</dampingFactor>
     </gazebo>

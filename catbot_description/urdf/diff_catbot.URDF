@@ -1,4 +1,4 @@
-<robot name="catbot">
+<robot name="diff_catbot">
     <!-- This is a fictitious link, falling right below the center of mass of the robot, and acting as a projection of it on the ground.-->
     <link name="base_footprint">
       <inertial>
@@ -35,7 +35,7 @@
             rpy="0 0 0" />
         <geometry>
             <mesh
-            filename="package://catbot/meshes/base_link.STL" />
+            filename="package://catbot_description/meshes/diff_catbot/base_link.STL" />
         </geometry>
         <material
             name="">
@@ -49,7 +49,7 @@
             rpy="0 0 0" />
         <geometry>
             <mesh
-            filename="package://catbot/meshes/base_link.STL" />
+            filename="package://catbot_description/meshes/diff_catbot/base_link.STL" />
         </geometry>
         </collision>
     </link>
@@ -75,7 +75,7 @@
             rpy="0 0 0" />
         <geometry>
             <mesh
-            filename="package://catbot/meshes/right_wheel.STL" />
+            filename="package://catbot_description/meshes/diff_catbot/right_wheel.STL" />
         </geometry>
         <material
             name="">
@@ -89,7 +89,7 @@
             rpy="0 0 0" />
         <geometry>
             <mesh
-            filename="package://catbot/meshes/right_wheel.STL" />
+            filename="package://catbot_description/meshes/diff_catbot/right_wheel.STL" />
         </geometry>
         </collision>
     </link>
@@ -134,7 +134,7 @@
             rpy="0 0 0" />
         <geometry>
             <mesh
-            filename="package://catbot/meshes/left_wheel.STL" />
+            filename="package://catbot_description/meshes/diff_catbot/left_wheel.STL" />
         </geometry>
         <material
             name="">
@@ -148,7 +148,7 @@
             rpy="0 0 0" />
         <geometry>
             <mesh
-            filename="package://catbot/meshes/left_wheel.STL" />
+            filename="package://catbot_description/meshes/diff_catbot/left_wheel.STL" />
         </geometry>
         </collision>
     </link>
@@ -203,7 +203,7 @@
             rpy="0 0 0" />
         <geometry>
             <mesh
-            filename="package://catbot/meshes/caster_wheel.STL" />
+            filename="package://catbot_description/meshes/diff_catbot/caster_wheel.STL" />
         </geometry>
         <material
             name="">
@@ -217,7 +217,7 @@
             rpy="0 0 0" />
         <geometry>
             <mesh
-            filename="package://catbot/meshes/caster_wheel.STL" />
+            filename="package://catbot_description/meshes/diff_catbot/caster_wheel.STL" />
         </geometry>
         </collision>
     </link>
@@ -243,7 +243,7 @@
             rpy="0 0 0" />
         <geometry>
             <mesh
-            filename="package://catbot/meshes/camera.STL" />
+            filename="package://catbot_description/meshes/diff_catbot/camera.STL" />
         </geometry>
         <material
             name="">
@@ -257,7 +257,7 @@
             rpy="0 0 0" />
         <geometry>
             <mesh
-            filename="package://catbot/meshes/camera.STL" />
+            filename="package://catbot_description/meshes/diff_catbot/camera.STL" />
         </geometry>
         </collision>
     </link>
@@ -296,7 +296,7 @@
             rpy="0 0 0" />
         <geometry>
             <mesh
-            filename="package://catbot/meshes/laser_scanner.STL" />
+            filename="package://catbot_description/meshes/diff_catbot/laser_scanner.STL" />
         </geometry>
         <material
             name="">
@@ -310,7 +310,7 @@
             rpy="0 0 0" />
         <geometry>
             <mesh
-            filename="package://catbot/meshes/laser_scanner.STL" />
+            filename="package://catbot_description/meshes/diff_catbot/laser_scanner.STL" />
         </geometry>
         </collision>
     </link>
@@ -457,7 +457,7 @@
           </noise>
         </ray>
         <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-          <topicName>/catbot/laser/scan</topicName>
+          <topicName>/diff_catbot/laser/scan</topicName>
           <frameName>laser_scanner</frameName>
         </plugin>
       </sensor>
