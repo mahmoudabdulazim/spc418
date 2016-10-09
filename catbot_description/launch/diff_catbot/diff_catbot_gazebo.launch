@@ -16,8 +16,4 @@
 	<include file="$(find catbot_description)/launch/diff_catbot/diff_catbot_display.launch" />
         <node    name="teleop_node" pkg="catbot_control" type="teleop_node"/>
         <node    name="spawn_model" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model diff_catbot" output="screen" />
-        <node    name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
-            <param name="publish_frequency" type="double" value="50.0" />
-            <remap from="/joint_states" to="/catbot/joint_states" />
-        </node>
 </launch>
