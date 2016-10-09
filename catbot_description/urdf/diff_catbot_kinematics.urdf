@@ -188,7 +188,8 @@
                 <parent link="base_link" />
                 <child link="laser_scanner" />
         </joint>
-
+        <!-- Transmissions are important for abstracting the connection between urdf model joints and actuators (wheter simulated or actual) -->
+        <!-- Left wheel transmission -->
         <transmission name="left_motor_transmission">
                 <type>transmission_interface/SimpleTransmission</type>
                 <joint name="left_motor">
@@ -199,6 +200,7 @@
                         <mechanicalReduction>1</mechanicalReduction>
                 </actuator>
         </transmission>
+        <!-- Right wheel transmission -->
         <transmission name="right_motor_transmission">
                 <type>transmission_interface/SimpleTransmission</type>
                 <joint name="right_motor">
@@ -209,7 +211,7 @@
                         <mechanicalReduction>1</mechanicalReduction>
                 </actuator>
         </transmission>
-
+        <!-- gazebo tag is used to add simulation properties to a URDF file -->
         <gazebo reference="base_footprint">
                 <turnGravityOff>false</turnGravityOff>
         </gazebo>
@@ -222,7 +224,7 @@
                 <fdir1 value="1 0 0"/>
                 <material>Gazebo/Black</material>
                 <turnGravityOff>false</turnGravityOff>
-                <dampingFactor>0.005</dampingFactor>
+                <dampingFactor>0.005</dampingFactor>    <!-- Link velocity damping factor -->
         </gazebo>
 
         <gazebo reference="right_wheel">
@@ -233,11 +235,10 @@
                 <fdir1 value="1 0 0"/>
                 <material>Gazebo/Black</material>
                 <turnGravityOff>false</turnGravityOff>
-                <dampingFactor>0.005</dampingFactor>
+                <dampingFactor>0.005</dampingFactor>    <!-- Link velocity damping factor -->
         </gazebo>
         <gazebo reference="base_link">
                 <material>Gazebo/Red </material>
-                <dampingFactor>0.01</dampingFactor>
         </gazebo>
         <gazebo reference="caster_wheel">
                 <mu1 value="0"/>
@@ -252,7 +253,7 @@
         <gazebo reference="laser_scanner">
                 <material> Gazebo/Yellow </material>
         </gazebo>
-        <!-- Loading gazebo-ros-control plugin -->
+        <!-- Loading gazebo-ros-control plugin (works as an interface between transmissions and simulated actuators in gazebo) -->
         <gazebo>
                 <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
                         <robotNamespace>/catbot</robotNamespace>
