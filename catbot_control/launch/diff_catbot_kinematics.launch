@@ -19,7 +19,6 @@
         </include>
 
         <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model catbot" output="screen" />
-        <node name="controller_manager" pkg="controller_manager" type="controller_manager" />
         <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/catbot" args="left_motor_controller right_motor_controller joint_state_controller"/>
         <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
                 <remap from="/joint_states" to="/catbot/joint_states" />

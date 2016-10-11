@@ -4,7 +4,7 @@ catbot:
     type: joint_state_controller/JointStateController
     publish_rate: 100
 
-  # Effort Controllers ---------------------------------------
+  # Velocity Controllers ---------------------------------------
   right_motor_controller:
     type: velocity_controllers/JointVelocityController
     joint: right_motor

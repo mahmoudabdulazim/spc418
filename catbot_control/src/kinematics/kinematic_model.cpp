@@ -17,16 +17,18 @@ int main(int argc, char **argv)
 {
   cout << "\n \n \n \n \n \n \n \n \n \n \n \n" << endl;
   help();
-  double right_motor_command = 0,left_motor_command = 0;
+
+  double right_motor_command = 0;
+  double left_motor_command  = 0;
   double nominal_linear_vel  = 0;
   double nominal_angular_vel = 0;
+
   fd_set rfds;
   FD_ZERO(&rfds);
   FD_SET(STDIN_FILENO,&rfds);
 
   char inputKey;
 
-  // Getting current terminal settings for resetting
   termios term_settings;
   tcgetattr(STDIN_FILENO,&term_settings);
   term_settings.c_lflag = ISIG |TOSTOP|ECHOK|IEXTEN|~ICANON;
@@ -39,7 +41,9 @@ int main(int argc, char **argv)
 
   ros::Publisher RightMotorCMD = DiffDriveNode.advertise<std_msgs::Float64>("/catbot/right_motor_controller/command",10);
   ros::Publisher LeftMotorCMD  = DiffDriveNode.advertise<std_msgs::Float64>("/catbot/left_motor_controller/command",10);
-  ros::Rate rate_controller(20);
+
+  ros::Rate rate_controller(30);
+
   while(ros::ok())
   {
     inputKey = getKey(rfds);
@@ -56,11 +60,11 @@ int main(int argc, char **argv)
       {
         if ((left_motor_command== 0) || (left_motor_command < 0))
         {
-          left_motor_command = -0.05;
+          left_motor_command = -0.2;
         }
         else
         {
-          left_motor_command*= 1.1;
+          left_motor_command*= 1.2;
         }
         nominal_linear_vel  = (left_motor_command + right_motor_command)*0.5;
         nominal_angular_vel = (right_motor_command - left_motor_command)*0.314;
@@ -74,7 +78,7 @@ int main(int argc, char **argv)
         }
         else
         {
-          nominal_linear_vel*= 1.1;
+          nominal_linear_vel*= 1.2;
         }
         right_motor_command = nominal_linear_vel + nominal_angular_vel * 1.5923;
         left_motor_command  = nominal_linear_vel - nominal_angular_vel * 1.5923;
@@ -84,11 +88,11 @@ int main(int argc, char **argv)
       {
         if ((right_motor_command== 0) || (right_motor_command < 0))
         {
-          right_motor_command = -0.05;
+          right_motor_command = -0.2;
         }
         else
         {
-          right_motor_command*= 1.1;
+          right_motor_command*= 1.2;
         }
         nominal_linear_vel   = (left_motor_command + right_motor_command)*0.5;
         nominal_angular_vel  = (right_motor_command - left_motor_command)*0.314;
@@ -98,11 +102,11 @@ int main(int argc, char **argv)
       {
         if ((nominal_angular_vel == 0) || (nominal_angular_vel < 0))
         {
-          nominal_angular_vel = 0.05;
+          nominal_angular_vel = 0.20;
         }
         else
         {
-          nominal_angular_vel*= 1.1;
+          nominal_angular_vel*= 1.2;
         }
         right_motor_command = nominal_linear_vel + nominal_angular_vel * 1.5923;
         left_motor_command  = nominal_linear_vel - nominal_angular_vel * 1.5923;
@@ -120,11 +124,11 @@ int main(int argc, char **argv)
       {
         if ((nominal_angular_vel == 0) || (nominal_angular_vel > 0))
         {
-          nominal_angular_vel = -0.05;
+          nominal_angular_vel = -0.2;
         }
         else
         {
-          nominal_angular_vel*= 1.1;
+          nominal_angular_vel*= 1.2;
         }
         right_motor_command = nominal_linear_vel + nominal_angular_vel * 1.5923;
         left_motor_command  = nominal_linear_vel - nominal_angular_vel * 1.5923;
@@ -134,11 +138,11 @@ int main(int argc, char **argv)
       {
         if ((left_motor_command== 0) || (left_motor_command < 0))
         {
-          left_motor_command = 0.15;
+          left_motor_command = 0.2;
         }
         else
         {
-          left_motor_command*= 1.1;
+          left_motor_command*= 1.2;
         }
         nominal_linear_vel  = (left_motor_command + right_motor_command) * 0.5;
         nominal_angular_vel = (right_motor_command - left_motor_command) * 0.314;
@@ -152,7 +156,7 @@ int main(int argc, char **argv)
         }
         else
         {
-          nominal_linear_vel*= 1.1;
+          nominal_linear_vel*= 1.2;
         }
         right_motor_command = nominal_linear_vel + nominal_angular_vel * 1.5923;
         left_motor_command  = nominal_linear_vel - nominal_angular_vel * 1.5923;
@@ -162,11 +166,11 @@ int main(int argc, char **argv)
       {
         if ((right_motor_command== 0) || (right_motor_command < 0))
         {
-          right_motor_command = 0.05;
+          right_motor_command = 0.2;
         }
         else
         {
-          right_motor_command*= 1.1;
+          right_motor_command*= 1.2;
         }
         nominal_linear_vel  = (left_motor_command + right_motor_command) * 0.5;
         nominal_angular_vel = (right_motor_command - left_motor_command) * 0.314;
@@ -174,10 +178,13 @@ int main(int argc, char **argv)
       }
     }
     std_msgs::Float64 right_wheel_vel,left_wheel_vel;
-    right_wheel_vel.data = right_motor_command*5;
-    left_wheel_vel.data  = left_motor_command*5;
+
+    right_wheel_vel.data = right_motor_command * 5;
+    left_wheel_vel.data  = left_motor_command * 5 ;
+
     RightMotorCMD.publish(right_wheel_vel);
     LeftMotorCMD.publish(left_wheel_vel);
+
     rate_controller.sleep();
   }
   return 0;
